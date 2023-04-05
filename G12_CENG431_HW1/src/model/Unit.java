@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Unit {
 	private int unitNumber;
@@ -8,10 +9,9 @@ public class Unit {
 	
 	
 	
-	public Unit(int unitNumber, List<Quiz> quizzes) {
-		
+	public Unit(int unitNumber) {
+		this.quizzes = new ArrayList<>();
 		this.unitNumber = unitNumber;
-		this.quizzes = quizzes;
 	}
 	
 	
@@ -33,6 +33,11 @@ public class Unit {
 	public void setQuizzes(List<Quiz> quizzes) {
 		this.quizzes = quizzes;
 	}
+	
+	public void addQuiz(Quiz quiz) {
+		this.quizzes.add(quiz);
+	}
+	
 	
 	public String toString() {
 		String str = "Unit " + unitNumber + ",";

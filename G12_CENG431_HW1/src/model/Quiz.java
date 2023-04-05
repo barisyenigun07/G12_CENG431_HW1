@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Quiz {
 	private int quizNumber;
@@ -8,25 +9,19 @@ public class Quiz {
 	
 	
 
-	public Quiz(int quizNumber, List<Question> questions) {
-		
+	public Quiz(int quizNumber) {
+		this.questions = new ArrayList<>();
 		this.quizNumber = quizNumber;
-		this.questions = questions;
 	}
 	
 	
-
 	public int getQuizNumber() {
 		return quizNumber;
 	}
 
-
-
 	public void setQuizNumber(int quizNumber) {
 		this.quizNumber = quizNumber;
 	}
-
-
 
 	public List<Question> getQuestions() {
 		return questions;
@@ -34,6 +29,10 @@ public class Quiz {
 
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
+	}
+	
+	public void addQuestion(Question question) {
+		this.questions.add(question);
 	}
 	
 	public String toString() {
