@@ -44,7 +44,7 @@ public class FileIO {
     }
 
     public void writeData(String data){
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))){
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filename))){
             bw.write(data);
         }
         catch (IOException e){

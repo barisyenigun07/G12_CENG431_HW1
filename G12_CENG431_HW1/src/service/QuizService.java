@@ -16,8 +16,7 @@ public class QuizService {
 		Random random = new Random();
 		int quizNum = random.nextInt(1, 11);
 		for (int i = 0; i < quizNum; i++) {
-			Quiz quiz = new Quiz();
-			quiz.setQuizNumber(i + 1);
+			Quiz quiz = new Quiz(i + 1);
 			List<Question> questions = questionService.createQuestions();
 			quiz.setQuestions(questions);
 			quizzes.add(quiz);

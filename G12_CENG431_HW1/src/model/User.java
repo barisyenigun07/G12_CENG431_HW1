@@ -4,20 +4,26 @@ public class User {
 	private String username;
 	private String password;
 	private Language chosenLanguage;
+	private League league = League.BRONZE;
+	private int streakDay;
 	private int currentUnit;
 	private int solvedQuizzes;
+	private int points;
 	
 	public User() {
 		
 	}
 
-	public User(String username, String password, Language chosenLanguage, int currentUnit, int solvedQuizzes) {
+	public User(String username, String password, Language chosenLanguage, League league,int streakDay, int currentUnit, int solvedQuizzes, int points) {
 		
 		this.username = username;
 		this.password = password;
 		this.chosenLanguage = chosenLanguage;
+		this.league = league;
+		this.streakDay = streakDay;
 		this.currentUnit = currentUnit;
 		this.solvedQuizzes = solvedQuizzes;
+		this.points = points;
 	}
 
 	public String getUsername() {
@@ -43,6 +49,22 @@ public class User {
 	public void setChosenLanguage(Language chosenLanguage) {
 		this.chosenLanguage = chosenLanguage;
 	}
+	
+	public League getLeague() {
+		return league;
+	}
+	
+	public void setLeague(League league) {
+		this.league = league;
+	}
+	
+	public int getStreakDay() {
+		return streakDay;
+	}
+	
+	public void setStreakDay(int streakDay) {
+		this.streakDay = streakDay;
+	}
 
 	public int getCurrentUnit() {
 		return currentUnit;
@@ -60,8 +82,21 @@ public class User {
 		this.solvedQuizzes = solvedQuizzes;
 	}
 	
+	public int getPoints() {
+		return points;
+	}
+	
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	
 	public String toString() {
-		return username + "," + password + "," + chosenLanguage.getLanguageType() + "," + currentUnit + "," + solvedQuizzes + "\n";
+		return username + "," + password + "," + chosenLanguage.getLanguageType().name() + "," + league.name() + "," + streakDay + "," + currentUnit + "," + solvedQuizzes + "," + points + "\n";
+	}
+	
+	public boolean equals(Object o) {
+		User that = (User) o;
+		return this.username.equals(that.username);
 	}
 	
 }

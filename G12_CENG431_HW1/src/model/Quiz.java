@@ -39,17 +39,17 @@ public class Quiz {
 		String str = "Quiz " + quizNumber + ",";
 		int reading = 0, listening = 0, speaking = 0, wordMatching = 0;
 		for (Question question : questions) {
-			switch (question.getClass().toString()) {
-				case "Reading":
+			switch (question.getClass().getName()) {
+				case "model.Reading":
 					reading++;
 					break;
-				case "Listening":
+				case "model.Listening":
 					listening++;
 					break;
-				case "Speaking":
+				case "model.Speaking":
 					speaking++;
 					break;
-				case "WordMatching":
+				case "model.WordMatching":
 					wordMatching++;
 					break;
 			}

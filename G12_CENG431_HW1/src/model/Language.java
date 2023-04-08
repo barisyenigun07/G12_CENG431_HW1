@@ -36,8 +36,16 @@ public class Language {
 	public String toString() {
 		String str = languageType.toString() + ",";
 		for (Unit unit : units) {
-			str += unit.toString() + ",";
+			str += unit.toString();
 		}
+		str += "\n";
 		return str;
+	}
+	
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Language that = (Language) o;
+		return languageType.name().equals(that.getLanguageType().name());
 	}
 }
