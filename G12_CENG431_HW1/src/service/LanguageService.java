@@ -41,28 +41,54 @@ public class LanguageService {
 		return languageRepository.findByID(name);
 	}
 	
-	public int getUnitNumbers(Language language) {
-		return language.getUnits().size();
-	}
+	
 	
 	public int getQuizNumbers(Language language) {
-		int quizNumbers = 0;
-		List<Unit> units = language.getUnits();
-		for (Unit unit : units) {
-			quizNumbers += unit.getQuizzes().size();
-		}
-		return quizNumbers;
+		
+		return getAllQuizzesOfALanguage(language).size();
 	}
 	
-	public List<Quiz> getQuizzes(Language language, int quizNum){
+	public Language getLanguageWithMaximumNumberOfUnits() {
+		List<Language> languages = languageRepository.findAll();
+		Language languageWithMaximumNumUnits = languages.get(0);
+		
+		for (int i = 0; i < languages.size(); i++) {
+			if (languages.get(i).getUnits().size() > languageWithMaximumNumUnits.getUnits().size()) {
+				languageWithMaximumNumUnits = languages.get(i);
+			}
+		}
+		
+		return languageWithMaximumNumUnits;
+		
+	}
+	
+	public Language getLanguageWithMaximumNumberOfQuizzes() {
+		List<Language> languages = languageRepository.findAll();
+		Language languageWithMaximumNumQuizzes = languages.get(0);
+		
+		for (int i = 0; i < languages.size(); i++) {
+			if (getQuizNumbers(languages.get(i)) > getQuizNumbers(languageWithMaximumNumQuizzes)) {
+				languageWithMaximumNumQuizzes = languages.get(i);
+			}
+		}
+		return languageWithMaximumNumQuizzes;
+	}
+	
+	public List<Quiz> getAllQuizzesOfALanguage(Language language) {
 		List<Quiz> allQuizzes = new ArrayList<>();
-		List<Quiz> willBeSolvedQuizzes = new ArrayList<>();
-		List<Unit> units = language.getUnits();
-		for (Unit unit : units) {
+		List<Unit> unitsOfLanguage = language.getUnits();
+		for (Unit unit : unitsOfLanguage) {
 			for (Quiz quiz : unit.getQuizzes()) {
 				allQuizzes.add(quiz);
 			}
 		}
+		return allQuizzes;
+	}
+	
+	public List<Quiz> getWillBeSolvedQuizzes(Language language, int quizNum){
+		
+		List<Quiz> allQuizzes = getAllQuizzesOfALanguage(language);
+		List<Quiz> willBeSolvedQuizzes = new ArrayList<>();
 		
 		int i = 0;
 		
@@ -73,5 +99,7 @@ public class LanguageService {
 		
 		return willBeSolvedQuizzes;
 	}
+	
+	
 	
 }

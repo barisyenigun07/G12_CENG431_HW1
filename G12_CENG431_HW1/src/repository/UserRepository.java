@@ -8,7 +8,6 @@ import java.util.Comparator;
 import io.FileIO;
 import model.User;
 import model.Language;
-import model.League;
 
 public class UserRepository implements IRepository<User, String>{
 	private FileIO fileIO;
@@ -33,16 +32,13 @@ public class UserRepository implements IRepository<User, String>{
 				String language = arrData[2];
 				Language chosenLanguage = languageRepository.findByID(language);
 				user.setChosenLanguage(chosenLanguage);
-				String leagueName = arrData[3];
-				League league = findLeague(leagueName);
-				user.setLeague(league);
-				int streakDay = Integer.parseInt(arrData[4]);
+				int streakDay = Integer.parseInt(arrData[3]);
 				user.setStreakDay(streakDay);
-				int currentUnit = Integer.parseInt(arrData[5]);
+				int currentUnit = Integer.parseInt(arrData[4]);
 				user.setCurrentUnit(currentUnit);
-				int solvedQuizzes = Integer.parseInt(arrData[6]);
+				int solvedQuizzes = Integer.parseInt(arrData[5]);
 				user.setSolvedQuizzes(solvedQuizzes);
-				int points = Integer.parseInt(arrData[7]);
+				int points = Integer.parseInt(arrData[6]);
 				user.setPoints(points);
 			}
 			users.add(user);
@@ -50,9 +46,15 @@ public class UserRepository implements IRepository<User, String>{
 		return users;
 	}
 	
-	public List<User> findAllByPoints(){
+	public List<User> findAllByPoints(List<User> users){
+		users.sort(Comparator.comparing(User::getPoints).reversed());
+		return users;
+	}
+	
+	public List<User> findAllByLanguage(Language language){
 		List<User> users = findAll();
-		return users.stream().sorted(Comparator.comparing(User::getPoints).reversed()).collect(Collectors.toList());
+		List<User> usersByLanguage = users.stream().filter(user -> user.getChosenLanguage().equals(language)).collect(Collectors.toList());
+		return usersByLanguage;
 	}
 
 	@Override
@@ -80,19 +82,6 @@ public class UserRepository implements IRepository<User, String>{
 			strData += user.toString();
 		}
 		fileIO.writeData(strData);
-	}
-	
-	private League findLeague(String leagueName) {
-		League[] leagues = League.values();
-		League league = null;
-		
-		for (League l : leagues) {
-			if (l.name().equals(leagueName)) {
-				league = l;
-				break;
-			}
-		}
-		return league;
 	}
 	
 }
